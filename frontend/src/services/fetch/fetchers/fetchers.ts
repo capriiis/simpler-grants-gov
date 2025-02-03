@@ -4,10 +4,8 @@ import {
   EndpointConfig,
   fetchOpportunityEndpoint,
   opportunitySearchEndpoint,
-  userDeleteSavedOpportunityEndpoint,
-  userGetSavedOpportunityEndpoint,
   userLogoutEndpoint,
-  userPostSavedOpportunityEndpoint,
+  userSavedOpportunityEndpoint,
 } from "src/services/fetch/endpointConfigs";
 import {
   createRequestBody,
@@ -80,14 +78,5 @@ export const fetchOpportunitySearch = requesterForEndpoint<SearchAPIResponse>(
 export const postUserLogout =
   requesterForEndpoint<APIResponse>(userLogoutEndpoint);
 
-export const deleteUserSavedOpportunity = requesterForEndpoint<APIResponse>(
-  userDeleteSavedOpportunityEndpoint,
-);
-
-export const gettUserSavedOpportunity = requesterForEndpoint<APIResponse>(
-  userGetSavedOpportunityEndpoint,
-);
-
-export const postUserSavedOpportunity = requesterForEndpoint<APIResponse>(
-  userPostSavedOpportunityEndpoint,
-);
+export const userSavedOpportunity = (type: "GET" | "POST" | "DELETE") =>
+  requesterForEndpoint<APIResponse>(userSavedOpportunityEndpoint(type));
