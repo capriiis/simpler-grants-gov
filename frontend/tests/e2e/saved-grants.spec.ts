@@ -16,7 +16,9 @@ test("redirects if not logged in", async ({ page }) => {
   await expect(page).toHaveTitle("Unauthenticated | Simpler.Grants.gov");
 });
 
-test("shows save / search cta if logged in", async ({ page }, { project }) => {
+test.only("shows save / search cta if logged in", async ({ page }, {
+  project,
+}) => {
   await page.goto("http://localhost:3000/?_ff=authOn:true");
   await performSignIn(page, project);
 

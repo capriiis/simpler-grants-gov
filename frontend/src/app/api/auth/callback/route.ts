@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
+  console.log("~~~ auth callback", request.url);
   const token = request.nextUrl.searchParams.get("token");
   if (!token) {
     return redirect("/unauthorized");

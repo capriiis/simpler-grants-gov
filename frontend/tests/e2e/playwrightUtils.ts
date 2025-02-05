@@ -50,8 +50,13 @@ export async function waitForUrl(
   page: Page,
   url: string,
   timeout = 30000, // query params get set after a debounce period
+  debug = false,
 ) {
   const changeCheck = (pageUrl: string): boolean => {
+    if (debug) {
+      // eslint-disable-next-line
+      console.log(`~~ checking url for change: ${pageUrl} ~~`);
+    }
     return pageUrl === url;
   };
   await waitForURLChange(page, changeCheck, timeout);
@@ -122,7 +127,8 @@ export const performSignIn = async (page: Page, project: FullProject) => {
   await requiredInput.fill(randomUserName);
   await submitButton.click();
 
-  await waitForUrl(page, "http://localhost:3000/");
+  await waitForUrl(page, "http://localhost:3000/", 30000, true);
+  // await waitForUrl(page, "http://localhost:3000");
 
   if (project.name.match(/[Mm]obile/)) {
     const userDropdown = page.locator(
