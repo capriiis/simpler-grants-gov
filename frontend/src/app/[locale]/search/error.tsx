@@ -1,9 +1,8 @@
 "use client";
 
 import QueryProvider from "src/app/[locale]/search/QueryProvider";
+import { ParsedError } from "src/errors";
 import { usePrevious } from "src/hooks/usePrevious";
-import { FrontendErrorDetails } from "src/types/apiResponseTypes";
-import { ServerSideSearchParams } from "src/types/searchRequestURLTypes";
 import { Breakpoints, ErrorProps } from "src/types/uiTypes";
 import { convertSearchParamsToProperTypes } from "src/utils/search/convertSearchParamsToProperTypes";
 
@@ -16,14 +15,6 @@ import ContentDisplayToggle from "src/components/ContentDisplayToggle";
 import SearchBar from "src/components/search/SearchBar";
 import SearchFilters from "src/components/search/SearchFilters";
 import ServerErrorAlert from "src/components/ServerErrorAlert";
-
-export interface ParsedError {
-  message: string;
-  searchInputs: ServerSideSearchParams;
-  status: number;
-  type: string;
-  details?: FrontendErrorDetails;
-}
 
 function isValidJSON(str: string) {
   try {
@@ -67,7 +58,7 @@ export default function SearchError({ error, reset }: ErrorProps) {
     ) {
       reset();
     }
-  }, [searchParams, reset]);
+  }, [searchParams, reset, previousSearchParams]);
 
   useEffect(() => {
     console.error(error);
